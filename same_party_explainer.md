@@ -9,11 +9,11 @@
 
 ## Motivation
 
-In order to increase privacy on the web, browser vendors are planning restrictions on cross-site tracking, such as [phasing out third-party cookies](https://blog.chromium.org/2020/01/building-more-private-web-path-towards.html). Third-party cookies are currently [defined](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Tracking_and_privacy) as those associated with a [site](https://html.spec.whatwg.org/multipage/origin.html#sites) that is different from the site of the top-level page. However, modern websites are typically served over multiple domains/sites, many of which are owned by the same organization. [First-Party Sets](https://github.com/privacycg/first-party-sets) provides a mechanism to group domains/sites belonging to the same organization as being _same-party_ with each other, and thus defines a _privacy boundary_ for websites.
+In order to increase privacy on the web, browser vendors are planning restrictions on cross-site tracking, such as [phasing out third-party cookies](https://blog.chromium.org/2020/01/building-more-private-web-path-towards.html). Third-party cookies are currently [defined](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Tracking_and_privacy) as those associated with a [site](https://html.spec.whatwg.org/multipage/origin.html#sites) that is different from the site of the top-level page. However, modern websites are typically served over multiple domains/sites, many of which are owned by the same organization. For example, websites that host user-uploaded content often choose to host it on a different domain for enhanced security. [First-Party Sets](https://github.com/privacycg/first-party-sets) provides a mechanism to group domains/sites belonging to the same organization as being _same-party_ with each other, and thus defines a _privacy boundary_ for websites.
 
 The `SameParty` cookie attribute provides web developers a means to annotate cookies that are allowed to be set or sent in same-party, cross-site contexts; and hence should not be subject to obsoletion. In addition, `SameParty` cookies are blocked in cross-party, cross-site contexts.
 
-Introducing `SameParty` now, early in the process of phasing out third-party cookies, provides a means for sites to test out the First-Party Set behavior. While third-party cookies are still around today, we want to provide ample opportunities for web developers to test that their sites work with `SameParty` and to migrate their cookies to the new model far in advance of third-party cookies' deprecation.
+Introducing `SameParty` now, early in the process of phasing out third-party cookies, provides a means for sites to test out the First-Party Set behavior. While third-party cookies are still around today, we want to provide ample opportunities for web developers to test that their sites work with `SameParty` and to migrate their cookies to the new model far in advance of third-party cookies' obsoletion.
 
 
 ### Why support SameSite=Lax and SameSite=None in conjunction with SameParty?
@@ -45,9 +45,9 @@ Set-Cookie: cookie=tasty; SameSite=Lax; Secure; SameParty
 ```
 
 
-The `SameParty` attribute is specified without a value (as are `Secure` and `HttpOnly`). The `Secure` attribute is required in order to use the `SameParty` attribute. **Any cookie specifying `SameParty` without `Secure` will be rejected. Additionally, any cookie specifying `SameParty` in the presence of `SameSite=Strict` will be rejected.**
+The `SameParty` attribute is specified without a value (as are `Secure` and `HttpOnly`). The `Secure` attribute is required in order to use the `SameParty` attribute. **Any cookie specifying `SameParty` without `Secure` will be rejected as invalid. Additionally, any cookie specifying `SameParty` in the presence of `SameSite=Strict` will be rejected as invalid.**
 
-A browser that does not yet support the `SameParty` attribute [should](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-05#section-4.1.2) ignore the `SameParty` cookie attribute, but should not reject the cookie. 
+A browser that does not yet support the `SameParty` attribute [should](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-05#section-4.1.2) ignore the `SameParty` cookie attribute, but should not reject the cookie. However, Chrome installations where First-Party Sets are supported but have been disabled **will still reject** invalid `SameParty` cookies.
 
 
 ## SameParty and SameSite
