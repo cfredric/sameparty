@@ -134,6 +134,16 @@ A `SameParty` cookie in a `Set-Cookie` response header is stored if and only if 
 This means that the same rules (described above) apply to the contexts in which `SameParty` cookies may be set.
 
 
+## SameParty cookies & Same Origin Policy
+
+The `SameParty` attribute does not change cookies' behavior with respect to the Same Origin Policy; one domain is still prevented from reading or setting another domain's cookies. For example, a `SameParty` cookie set by member1.example would never be sent to https://member2.example, including in the following cases:
+
+![Non-SameParty Contexts](images/same_party_sop.png)
+
+1. Top-level navigation to another site, regardless of HTTP method, even if the site is a member/owner of the same set
+1. Embedding a different member/owner of the same set
+
+
 ## Reading SameParty cookies from JavaScript
 
 `SameParty` cookies can be used with JavaScript APIs such as <code>[document.cookie](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie)</code> and the [CookieStore API](https://wicg.github.io/cookie-store/). A `SameParty` cookie is accessible from JavaScript if the script is running in the context of a frame for which `SameParty` cookies were accessible when the frame was loaded.
