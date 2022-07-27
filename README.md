@@ -1,6 +1,8 @@
 
 # SameParty cookie attribute explainer
 
+This proposal has been archived, and further development has been stopped. Please see [First-Party Sets issue #92](https://github.com/WICG/first-party-sets/issues/92) for more information.
+
 ## Authors
  * chlily@chromium.org
  * kaustubhag@chromium.org
